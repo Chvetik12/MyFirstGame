@@ -10,14 +10,16 @@ public class AstroMan : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] private float jump = 20;
     [SerializeField] private Transform sensorGround;
-    [SerializeField] private int Crystal = 0;
+    [SerializeField] private TextMeshProUGUI textCrystal;
+    [SerializeField] private Ui_Life Uilife;
     Rigidbody2D rb;
+    private int Crystal = 0;
     private Animator anim;
     private SpriteRenderer sr;
     private bool isRight = true;
     private bool isGround;
-    public int lives;
     private float inputVertical;
+    private int life = 5;
 
     public int crystal
     {
@@ -29,11 +31,6 @@ public class AstroMan : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-    }
-
-    void Start()
-    {
-
     }
 
     void FixedUpdate()
@@ -76,49 +73,27 @@ public class AstroMan : MonoBehaviour
         if (collision.tag == "Crystal")
         {
             Crystal += 100;
-
+            textCrystal.text = Crystal.ToString();
             //print("Crystal: " + Crystal);
             Destroy(collision.gameObject);
         }
+        else if (collision.tag == "floor" || collision.tag == "spikes")
+        {
+            Damage();
+        }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Damage()
     {
-        if (collision.collider.tag == "spikes")
+        life--;
+        Uilife.RemuveLife();
+        if (life == 0)
         {
-            lives -= 1;
-            //print("CollisionEnter");
-
-
-            if (lives == 0)
-            {
-                var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-                SceneManager.LoadScene(currentSceneIndex);
-
-            }
+            Time.timeScale = 0;
+            Uilife.GameOver();
         }
     }
-        private void OnTriggerStay2D(Collider2D other)
-        {
-
-            if (other.tag == "Ladder")
-            {
-            rb.gravityScale = 0;
-            //rb.velocity = Vector2.zero; //щоб не стрибав високо персонаж
-            inputVertical = Input.GetAxisRaw("Vertical");
-            rb.velocity = new Vector2(rb.position.x, inputVertical * speed);
-           
-            anim.SetFloat("LadderUp", inputVertical);
-            
-            }
-        }
-        private void OnTriggerExit2D(Collider2D other)
-        {
-
-        if (other.tag == "Ladder")
-           {
-            anim.SetBool("LadderUp", false);
-           }
-        }
     
 }
+
+
+

@@ -8,15 +8,16 @@ TagManager:
   - Plants
   - Crystal
   - Ladder
+  - floor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Plants
-  - 
+  - Ladders
   - 
   - 
   - 

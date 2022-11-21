@@ -5,33 +5,82 @@ using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
-    //    private Animator anim;
-    //    Rigidbody2D rb;
-    //    private bool LadderUp;
-    //    [SerializeField] private float speed = 5;
-    //    private float inputVertical;
+    private float inputHorizontal;
+    private float inputVertical;
+    private Animator anim;
+    public float distance;
+    public LayerMask WhatIsLadder;
+    private bool LadderUp;
+    Rigidbody2D rb;
 
-    //    private void Awake()
-    //    {
-    //        rb = GetComponent<Rigidbody2D>();
-    //        anim = GetComponent<Animator>();
-    //    }
-    //    void FixedUpdate()
-    //    {
-    //        if (LadderUp == true)
-    //        {
-    //            inputVertical = Input.GetAxisRaw("Vertical");
-    //            rb.velocity = new Vector2(rb.position.x, inputVertical * speed);
-    //            rb.gravityScale = 0;
-    //            anim.SetFloat("LadderUp", inputVertical);
-    //        }
-    //        else
-    //        {
-    //            rb.gravityScale = 5;
-    //        }
+    [SerializeField] private float speed;
 
-    //    }
-    //}
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(inputHorizontal * speed, rb.velocity.y);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, WhatIsLadder);
+        anim.SetBool("LadderUp", LadderUp);
+        if (hitInfo.collider != null)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                LadderUp = true;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                LadderUp = false;
+            }
+        }
+        if (LadderUp == true && hitInfo.collider != null)
+        {
+            inputVertical = Input.GetAxisRaw("Vertical");
+            rb.velocity = new Vector2(rb.velocity.x, inputVertical * speed);
+            rb.gravityScale = 0;
+        }
+        else
+        {
+            rb.gravityScale = 2;
+        }
+    }
+}
+//    private Animator anim;
+//    Rigidbody2D rb;
+//    private bool LadderUp;
+//    [SerializeField] private float speed = 5;
+//    private float inputVertical;
+
+//    private void Awake()
+//    {
+//        rb = GetComponent<Rigidbody2D>();
+//        anim = GetComponent<Animator>();
+//    }
+//    void FixedUpdate()
+//    {
+//        if (LadderUp == true)
+//        {
+//            inputVertical = Input.GetAxisRaw("Vertical");
+//            rb.velocity = new Vector2(rb.position.x, inputVertical * speed);
+//            rb.gravityScale = 0;
+//            anim.SetFloat("LadderUp", inputVertical);
+//        }
+//        else
+//        {
+//            rb.gravityScale = 5;
+//        }
+
+//    }
+//}
 
 
 //    private void OnTriggerStay2D(Collider2D other)//при пересичении с чем то сталкиваеться
@@ -79,5 +128,51 @@ public class Ladder : MonoBehaviour
 //    if (other.tag == "Ladder")
 //    {
 //        anim.SetBool("LadderUp", false);
+//    }
+//private float inputHorizontal;
+//    private float inputVertical;
+//    public float distance;
+//    public LayerMask WhatIsLadder;
+//    private bool LadderUp;
+
+//    [SerializeField] private float speed;
+
+//    void Start()
+//    {
+//        rb = GetComponent<Rigidbody2D>();
+//    }
+
+//    // Update is called once per frame
+//    void FixedUpdate()
+//    {
+//        inputHorizontal = Input.GetAxisRaw("Horizontal");
+//        rb.velocity = new Vector2(inputHorizontal * speed, rb.velocity.y);
+//        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, WhatIsLadder);
+//        if (hitInfo.collider != null)
+//        {
+//            if (input.GetKeyDown(KeyCode.UpArrow))
+//            {
+//                LadderUp == true;
+//            }
+//        }
+//        else
+//        {
+//            if (input.GetKeyDown(KeyCode.LeftArrow) || input.GetKeyDown(KeyCode.RightArrow))
+//            {
+//                LadderUp == false;
+//            }
+//        }
+//        if (LadderUp == true && hitInfo.collider != null)
+//        {
+//            inputVertical = Input.GetAxisRaw("Vertical");
+//            rb.velocity = new Vector2(rb.velocity.x, inputVertical * speed);
+//            rb.gravityScale = 0;
+//        }
+//        else
+//        {
+//            rb.gravityScale = 5;
+//        }
+
+
 //    }
 //}
