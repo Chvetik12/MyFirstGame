@@ -47,6 +47,7 @@ public class Ladder : MonoBehaviour
             inputVertical = Input.GetAxisRaw("Vertical");
             rb.velocity = new Vector2(rb.velocity.x, inputVertical * speed);
             rb.gravityScale = 0;
+            anim.SetBool("LAdderStay", Mathf.Abs(inputVertical) > 0 ? false : true);
         }
         else
         {
