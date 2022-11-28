@@ -20,7 +20,7 @@ public class AstroMan : MonoBehaviour
     private bool isGround;
     private float inputVertical;
     private int life = 5;
-
+    
     public int crystal
     {
         get => Crystal;
@@ -80,6 +80,8 @@ public class AstroMan : MonoBehaviour
         else if (collision.tag == "floor" || collision.tag == "spikes")
         {
             Damage();
+            anim.SetTrigger("AnimationAstroRed");
+
         }
     }
     private void Damage()

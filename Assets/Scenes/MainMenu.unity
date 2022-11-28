@@ -444,6 +444,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 766668219}
+    - target: {fileID: 382486067535439557, guid: af611a6806d034948bad0cfce1108b4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 382486067580074016, guid: af611a6806d034948bad0cfce1108b4e, type: 3}
       propertyPath: m_Transition
       value: 3
@@ -475,6 +479,14 @@ PrefabInstance:
     - target: {fileID: 382486067580074019, guid: af611a6806d034948bad0cfce1108b4e, type: 3}
       propertyPath: m_Color.r
       value: 0.6023496
+      objectReference: {fileID: 0}
+    - target: {fileID: 382486068024354765, guid: af611a6806d034948bad0cfce1108b4e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 382486068024354765, guid: af611a6806d034948bad0cfce1108b4e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 382486068315608381, guid: af611a6806d034948bad0cfce1108b4e, type: 3}
       propertyPath: m_Transition
